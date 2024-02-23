@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
             allowNull: false,
         },
         price: {
-            type: DataTypes.NUMBER,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         brand: {
@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
             allowNull: false 
         },
         size: {
-            type: DataTypes.NUMBER,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         type:{ 
