@@ -1,6 +1,7 @@
 const {
   getAllProductsController,
   createProductController,
+  getProductsByPriceController
 } = require("../Controller/productsControllers");
 
 const getAllProductsHandler = async (req, res) => {
@@ -32,7 +33,21 @@ const createProductsHandler = async (req, res) => {
   }
 };
 
+const filterByPriceHandler = async (req, res) => {
+
+  const { orderType } = req.params;
+
+  const productsFiltered = await getProductsByPriceController(orderType)
+  try { 
+    res.status(200).json(productsFiltered)
+  }
+  catch (error) {
+    res.status(417).send("Error filtering products by price");  // 417 Expectation Failed
+  }
+}
+
 module.exports = {
   getAllProductsHandler,
   createProductsHandler,
+  filterByPriceHandler
 };
