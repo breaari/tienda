@@ -24,7 +24,27 @@ const createUsersControllers = async ({
   }
 };
 
+const changeEmailControllers = async (userId, newEmail) => {
+  try {
+    const user = await Users.findByPk(userId);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    user.email = newEmail;
+
+    await user.save();
+    //await user.update({email:newEmail})
+
+    return "email actualizado correctamente" + user.email;
+  } catch (error) {
+    throw new Error("Error updating user email: " + error.message);
+  }
+};
+
 module.exports = {
   getAllUsersControllers,
   createUsersControllers,
+  changeEmailControllers,
 };
