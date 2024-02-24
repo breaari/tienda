@@ -30,8 +30,8 @@ const createUsersHandler = async (req, res) => {
 };
 
 const changeEmailHandler = async (req, res) => {
-  const userId = req.params.userId;
-  const newEmail = req.body.email;
+  const { userId } = req.params;
+  const { newEmail } = req.query;
 
   try {
     const updatedUser = await changeEmailControllers(userId, newEmail);

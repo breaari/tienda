@@ -8,7 +8,7 @@ routeUsers.get("/", getAllUsersHandler)
 
 routeUsers.post("/", createUsersHandler)
 
-routeUsers.put("/", changeEmailHandler)
+routeUsers.put("/:userId", changeEmailHandler)
 
 
 module.exports = {
