@@ -1,6 +1,7 @@
 const {
   getAllUsersControllers,
   createUsersControllers,
+  changeEmailControllers,
 } = require("../Controller/usersControllers");
 
 const getAllUsersHandler = async (req, res) => {
@@ -28,7 +29,21 @@ const createUsersHandler = async (req, res) => {
   }
 };
 
+const changeEmailHandler = async (req, res) => {
+  const userId = req.params.userId;
+  const newEmail = req.body.email;
+
+  try {
+    const updatedUser = await changeEmailControllers(userId, newEmail);
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error("Error changing user email:", error.message);
+    res.status(501).json({ error: "Error changing user email" });
+  }
+};
+
 module.exports = {
   getAllUsersHandler,
   createUsersHandler,
+  changeEmailHandler,
 };
