@@ -1,7 +1,9 @@
 const { Product } = require("../db");
 
 
-let arrayFilter = [];  
+let arrayFilter = [];
+let BooleanFilterType = false;
+let BooleanFilterBrand = false;
 
 const getAllProductsController = async () => {
   try {
@@ -43,24 +45,73 @@ const createProductController = async ({
 
 
 const getProductsByPriceController = async (orderType) => {
+  try {
     //arr.sort((a, b) => a - b)
   if(orderType === "ascendent"){
-    const orderArray = arrayFilter.sort((a,b) => a.price - b.price);
+    const orderArray =  arrayFilter.sort((a,b) => a.price - b.price);
     arrayFilter = orderArray;
-    console.log(orderArray)
-    return orderArray;
+    return arrayFilter;
   }
   else if(orderType === "descendent"){
     const orderArray = arrayFilter.sort((a,b) => b.price - a.price);
     arrayFilter = orderArray;
-    console.log(orderArray)
-    return orderArray;
+    return arrayFilter;
+  }
+  else{
+    throw "OrderPrice does not exist, please enter ascendent or descendent.";
+  }
+} catch (error) {
+    return  error;
   }
 
 }
 
+const getProductsByTypeController = async (filterType) => {
+  try {
+    const filterProductsByType = (type) => {
+      return arrayFilter.filter((product) => product.type === type);
+    };
+
+    if (BooleanFilterType === false) {
+      const filteredArray = filterProductsByType(filterType);
+      arrayFilter = filteredArray;
+      BooleanFilterType = true;
+      return arrayFilter;
+    }
+    else{
+      throw "type does not exist, please enter a valid type.";
+    }
+  } catch (error) {
+      return  error;
+    }
+  
+  }
+
+const getProductsByBrandController = async (filterBrand) => {
+  try {
+    const filterProductsByBrand = (brand) => {
+      return arrayFilter.filter((product) => product.brand === brand);
+    };
+
+    if (BooleanFilterBrand === false) {
+      const filteredArray = filterProductsByBrand(filterBrand);
+      arrayFilter = filteredArray;
+      BooleanFilterBrand = true;
+      return arrayFilter;
+    }
+    else{
+      throw "type does not exist, please enter a valid brand.";
+    }
+  } catch (error) {
+      return  error;
+    }
+  
+  }
+
 module.exports = {
   getAllProductsController,
   createProductController,
-  getProductsByPriceController
+  getProductsByPriceController,
+  getProductsByTypeController,
+  getProductsByBrandController,
 };
